@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<info>
+    <id>oauthclient</id>
+    <name>Oauth Client</name>
+    <description></description>
+    <licence>AGPL</licence>
+    <author>Fèlix Casanellas</author>
+    <version>0.0.1</version>
+    <requiremin>7.0.0</requiremin>
+</info>
