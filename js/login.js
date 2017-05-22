@@ -1,5 +1,5 @@
 (function() {
-    
+
 	var saml = document.createElement('script');
 	saml.type = 'text/javascript';
 	(document.getElementsByTagName('head')[0] || document.getElementsByTagName('body')[0]).appendChild(saml);
@@ -50,7 +50,7 @@ $(document).ready(function(){
 	}).appendTo('#login-saml');
 
 
-    $('<a id="login-saml-action" href="?app=user_saml" ></a>').css(
+    $('<a id="login-saml-action" href="/index.php/apps/oauthclient" ></a>').css(
     {
         'text-decoration': 'none'
     }).appendTo('#login-saml');

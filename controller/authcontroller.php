@@ -15,22 +15,32 @@ use OCP\AppFramework\Controller;
 use OCP\IUserSession;
 use OCP\IUserManager;
 
+require_once __DIR__ . '/../3rdparty/vendor/autoload.php';
+
 class AuthController extends Controller {
 
-  /** @var IUserManager */
 	private $userManager;
-
-	/** @var IUserSession */
 	private $userSession;
+  private $oauthClient;
 
   public function __construct($appName,
                     IRequest $request,
     								IUserManager $userManager,
-    								IUserSession $userSession,
+    								IUserSession $userSession
   ){
       parent::__construct($appName, $request);
       $this->userSession = $userSession;
 		  $this->userManager = $userManager;
+      $this->oauthClient = new \OAuth2\Client();
+  }
+
+  /**
+   * @NoAdminRequired
+   * @NoCSRFRequired
+   */
+  public function login() {
+    $users = $this->userManager->countUsers();
+    print_r($users); die('hi');
   }
 
   /**
@@ -38,6 +48,7 @@ class AuthController extends Controller {
    * @NoCSRFRequired
    */
   public function callback() {
-    $this->userService->create('user_prova', 'aaa');
+    $users = $this->userManager->countUsers();
+    print_r($users); die('hi');
   }
 }

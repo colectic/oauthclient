@@ -19,7 +19,6 @@ use \OCA\OauthClient\Controller\AuthController;
 
 class Application extends App {
 
-
 	public function __construct (array $urlParams=array()) {
 		parent::__construct('oauthclient', $urlParams);
 		$container = $this->getContainer();
@@ -28,12 +27,14 @@ class Application extends App {
 		 * Controllers
 		 */
 		$container->registerService('AuthController', function(IAppContainer $c) {
+			$server = $c->getServer();
 			return new AuthController(
 				$c->getAppName(),
 				$server->getRequest(),
+				$server->getUserManager(),
+				$server->getUserSession()
 			);
 		});
+
 	}
-
-
 }
