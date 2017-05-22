@@ -33,7 +33,8 @@ class Application extends App {
 		$container->registerService('AuthController', function(IContainer $c) {
 			return new AuthController(
 				$c->query('AppName'),
-				$c->query('Request')
+				$c->query('Request'),
+				$c->query('UserService')
 			);
 		});
 

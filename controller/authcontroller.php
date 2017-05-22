@@ -15,12 +15,18 @@ use \OCP\AppFramework\Controller;
 
 class AuthController extends Controller {
 
+  private $userService;
+
+  public function __construct($appName, IRequest $request, $userService){
+      parent::__construct($appName, $request);
+      $this->userService = $userService;
+  }
+
   /**
    * @NoAdminRequired
    * @NoCSRFRequired
    */
   public function callback() {
-    die('hola');
+    $this->userService->create('user_prova', 'aaa');
   }
-
 }
