@@ -30,7 +30,7 @@ class Application extends App {
 		 * Controllers
 		 */
 		$container->registerService('AuthController', function(IContainer $c) {
-			return new PageController(
+			return new AuthController(
 				$c->query('AppName'),
 				$c->query('Request')
 			);
