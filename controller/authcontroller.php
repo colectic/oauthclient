@@ -21,7 +21,6 @@ class AuthController extends Controller {
 
 	private $userManager;
 	private $userSession;
-  private $oauthClient;
 
   public function __construct($appName, $request,
     								IUserManager $userManager,
@@ -30,13 +29,6 @@ class AuthController extends Controller {
       parent::__construct($appName, $request);
       $this->userSession = $userSession;
 		  $this->userManager = $userManager;
-
-      /**
-       * TODO: Agafar aquests paràmetres de la configuració
-       */
-      $client_id     = 'e63b7303a7a6443e7ce50414773b7d1f0a1b9033ae1020534c7440888e4e8633';
-      $client_secret = 'de5d9a3ed59694dacd5a5f06e6998c8d69a8ecbe044acb690dc99a72e8aed315';
-      $this->oauthClient = new \OAuth2\Client($client_id, $client_secret);
   }
 
   /**
@@ -44,8 +36,20 @@ class AuthController extends Controller {
    * @NoCSRFRequired
    */
   public function login() {
-    $users = $this->userManager->countUsers();
-    print_r($users); die('hi');
+    /**
+     * TODO: Agafar aquests paràmetres de la configuració
+     */
+    $clientid     = 'e63b7303a7a6443e7ce50414773b7d1f0a1b9033ae1020534c7440888e4e8633';
+    $clientsecret = 'de5d9a3ed59694dacd5a5f06e6998c8d69a8ecbe044acb690dc99a72e8aed315';
+    $redirect_uri  = ' 	https://betaowncloud.barcelonaencomu.cat/remote.php';
+    $autorization_endpoint = 'https://betaparticipa.barcelonaencomu.cat/oauth/authorize';
+    $token_endpoint         = 'https://betaparticipa.barcelonaencomu.cat/oauth/token';
+    $api_endpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
+
+    $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
+    $auth_url = $oauthclient->getAuthenticationUrl($autorization_endpoint, $redirect_uri);
+    header('Location: ' . $auth_url);
+    die('Redirect');
   }
 
   /**
