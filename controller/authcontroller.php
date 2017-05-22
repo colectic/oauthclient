@@ -58,6 +58,17 @@ class AuthController extends Controller {
       $response = $oauthclient->getAccessToken($token_endpoint, 'authorization_code', $params);
       $oauthclient->setAccessToken($response['result']['access_token']);
       $response = $oauthclient->fetch($api_endpoint);
+
+      //Check if user exists
+      if ($this->userManager->userExists($response['username'])) {
+        //Set user
+        $user = $this->userManager->get($response['username']);
+        $this->userSesion->set($user);
+        OC_Util::redirectToDefaultPage();
+      } else {
+        //Create the user
+        die('create user');
+      }
       print_r($response); die();
     }
   }
