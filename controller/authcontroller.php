@@ -15,7 +15,11 @@ use \OCP\AppFramework\Controller;
 
 class AuthController extends Controller {
 
-  public function index() {
+  /**
+   * @NoAdminRequired
+   * @NoCSRFRequired
+   */
+  public function callback() {
     die('hola');
   }
 

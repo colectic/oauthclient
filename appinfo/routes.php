@@ -22,5 +22,5 @@ namespace OCA\OauthClient\AppInfo;
 $application = new Application();
 
 $application->registerRoutes($this, array('routes' => array(
-	array('name' => 'auth#index', 'url' => '/index', 'verb' => 'GET'),
+	array('name' => 'auth#callback', 'url' => '/callback', 'verb' => 'GET'),
 )));
