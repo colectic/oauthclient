@@ -43,7 +43,7 @@ class AuthController extends Controller {
      */
     $clientid     = 'e63b7303a7a6443e7ce50414773b7d1f0a1b9033ae1020534c7440888e4e8633';
     $clientsecret = 'de5d9a3ed59694dacd5a5f06e6998c8d69a8ecbe044acb690dc99a72e8aed315';
-    $redirect_uri  = ' 	https://betaowncloud.barcelonaencomu.cat/index.php/apps/oauthclient';
+    $redirect_uri  = 'https://betaowncloud.barcelonaencomu.cat/index.php/apps/oauthclient';
     $autorization_endpoint = 'https://betaparticipa.barcelonaencomu.cat/oauth/authorize';
     $token_endpoint         = 'https://betaparticipa.barcelonaencomu.cat/oauth/token';
     $api_endpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
