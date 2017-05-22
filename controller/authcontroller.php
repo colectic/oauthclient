@@ -11,15 +11,26 @@
 
 namespace OCA\OauthClient\Controller;
 
-use \OCP\AppFramework\Controller;
+use OCP\AppFramework\Controller;
+use OCP\IUserSession;
+use OCP\IUserManager;
 
 class AuthController extends Controller {
 
-  private $userService;
+  /** @var IUserManager */
+	private $userManager;
 
-  public function __construct($appName, $request, $userService){
+	/** @var IUserSession */
+	private $userSession;
+
+  public function __construct($appName,
+                    IRequest $request,
+    								IUserManager $userManager,
+    								IUserSession $userSession,
+  ){
       parent::__construct($appName, $request);
-      $this->userService = $userService;
+      $this->userSession = $userSession;
+		  $this->userManager = $userManager;
   }
 
   /**
