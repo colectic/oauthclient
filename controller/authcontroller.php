@@ -64,8 +64,8 @@ class AuthController extends Controller {
       if ($this->userManager->userExists($result['username'])) {
         //Set user
         $user = $this->userManager->get($result['username']);
-        $this->userSesion->set($user);
-        OC_Util::redirectToDefaultPage();
+        $this->userSession->setUser($user);
+        return new RedirectResponse('/');
       } else {
         //Create the user
         die('create user');
