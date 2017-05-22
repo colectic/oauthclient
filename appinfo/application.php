@@ -16,6 +16,7 @@ use \OCP\AppFramework\App;
 use \OCP\IContainer;
 
 use \OCA\OauthClient\Controller\AuthController;
+use \OCA\OauthClient\Service\UserService;
 
 
 class Application extends App {
@@ -36,7 +37,7 @@ class Application extends App {
 			);
 		});
 
-		/*$container->registerService('UserService', function($c) {
+		$container->registerService('UserService', function($c) {
         return new UserService(
             $c->query('UserManager')
         );
@@ -44,7 +45,7 @@ class Application extends App {
 
     $container->registerService('UserManager', function($c) {
         return $c->query('ServerContainer')->getUserManager();
-    });*/
+    });
 	}
 
 

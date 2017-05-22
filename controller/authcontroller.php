@@ -15,7 +15,7 @@ use \OCP\AppFramework\Controller;
 
 class AuthController extends Controller {
 
-  public function callback() {
+  public function index() {
     die('hola');
   }
 
