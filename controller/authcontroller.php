@@ -23,15 +23,20 @@ class AuthController extends Controller {
 	private $userSession;
   private $oauthClient;
 
-  public function __construct($appName,
-                    IRequest $request,
+  public function __construct($appName, $request,
     								IUserManager $userManager,
     								IUserSession $userSession
   ){
       parent::__construct($appName, $request);
       $this->userSession = $userSession;
 		  $this->userManager = $userManager;
-      $this->oauthClient = new \OAuth2\Client();
+
+      /**
+       * TODO: Agafar aquests paràmetres de la configuració
+       */
+      $client_id     = 'e63b7303a7a6443e7ce50414773b7d1f0a1b9033ae1020534c7440888e4e8633';
+      $client_secret = 'de5d9a3ed59694dacd5a5f06e6998c8d69a8ecbe044acb690dc99a72e8aed315';
+      $this->oauthClient = new \OAuth2\Client($client_id, $client_secret);
   }
 
   /**
