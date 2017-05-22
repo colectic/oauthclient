@@ -29,22 +29,12 @@ class Application extends App {
 		/**
 		 * Controllers
 		 */
-		$container->registerService('PageController', function(IContainer $c) {
+		$container->registerService('AuthController', function(IContainer $c) {
 			return new PageController(
-				$c->query('AppName'), 
-				$c->query('Request'),
-				$c->query('UserId')
+				$c->query('AppName'),
+				$c->query('Request')
 			);
 		});
-
-
-		/**
-		 * Core
-		 */
-		$container->registerService('UserId', function(IContainer $c) {
-			return \OCP\User::getUser();
-		});		
-		
 	}
 
 
