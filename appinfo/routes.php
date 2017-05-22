@@ -23,5 +23,4 @@ $application = new Application();
 
 $application->registerRoutes($this, array('routes' => array(
 	array('name' => 'auth#login', 'url' => '/', 'verb' => 'GET'),
-	array('name' => 'auth#callback', 'url' => '/callback', 'verb' => 'GET'),
 )));

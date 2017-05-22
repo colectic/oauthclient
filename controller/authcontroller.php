@@ -11,9 +11,10 @@
 
 namespace OCA\OauthClient\Controller;
 
-use OCP\AppFramework\Controller;
-use OCP\IUserSession;
-use OCP\IUserManager;
+use \OCP\AppFramework\Controller;
+use \OCP\AppFramework\Http\RedirectResponse;
+use \OCP\IUserSession;
+use \OCP\IUserManager;
 
 require_once __DIR__ . '/../3rdparty/vendor/autoload.php';
 
@@ -34,8 +35,9 @@ class AuthController extends Controller {
   /**
    * @NoAdminRequired
    * @NoCSRFRequired
+   * @PublicPage
    */
-  public function login() {
+  public function login($code=null) {
     /**
      * TODO: Agafar aquests paràmetres de la configuració
      */
@@ -47,20 +49,16 @@ class AuthController extends Controller {
     $api_endpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
 
     $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
-    print_r($oauthclient); die();
 
-
-    $auth_url = $oauthclient->getAuthenticationUrl($autorization_endpoint, $redirect_uri);
-    header('Location: ' . $auth_url);
-    die('Redirect');
-  }
-
-  /**
-   * @NoAdminRequired
-   * @NoCSRFRequired
-   */
-  public function callback() {
-    $users = $this->userManager->countUsers();
-    print_r($users); die('hi');
+    if (!$code) {
+      $auth_url = $oauthclient->getAuthenticationUrl($autorization_endpoint, $redirect_uri);
+      return new RedirectResponse($auth_url);
+    } else {
+      $params = array('code' => $code, 'redirect_uri' => $redirect_uri);
+      $response = $oauthclient->getAccessToken($token_endpoint, 'authorization_code', $params);
+      $oauthclient->setAccessToken($response['result']['access_token']);
+      $response = $oauthclient->fetch($api_endpoint);
+      print_r($response); die();
+    }
   }
 }
