@@ -12,8 +12,8 @@
 namespace OCA\OauthClient\AppInfo;
 
 
-use OCP\AppFramework\App;
-use OCP\AppFramework\IAppContainer;
+use \OCP\AppFramework\App;
+use \OCP\AppFramework\IAppContainer;
 
 use \OCA\OauthClient\Controller\AuthController;
 
@@ -32,7 +32,8 @@ class Application extends App {
 				$c->getAppName(),
 				$server->getRequest(),
 				$server->getUserManager(),
-				$server->getUserSession()
+				$server->getUserSession(),
+				$server->getSession()
 			);
 		});
 

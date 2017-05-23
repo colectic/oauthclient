@@ -22,14 +22,17 @@ class AuthController extends Controller {
 
 	private $userManager;
 	private $userSession;
+  private $session;:
 
   public function __construct($appName, $request,
     								IUserManager $userManager,
-    								IUserSession $userSession
+    								IUserSession $userSession,
+                    Isession $session
   ){
       parent::__construct($appName, $request);
       $this->userSession = $userSession;
 		  $this->userManager = $userManager;
+      $this->session = $session;
   }
 
   /**
@@ -64,7 +67,8 @@ class AuthController extends Controller {
       if ($this->userManager->userExists($result['username'])) {
         //Set user
         $user = $this->userManager->get($result['username']);
-        $this->userSession->setUser($user);
+        //$this->userSession->setUser($user);
+        $this->session->login($result['username'], '123456789');
         return new RedirectResponse('/');
       } else {
         //Create the user
