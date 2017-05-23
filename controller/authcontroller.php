@@ -69,7 +69,7 @@ class AuthController extends Controller {
         $user = $this->userManager->get($result['username']);
         //$this->userSession->setUser($user);
         $this->session->login($result['username'], '123456789');
-        return new RedirectResponse('/');
+        return new RedirectResponse('/'); 
       } else {
         //Create the user
         die('create user');
