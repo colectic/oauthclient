@@ -11,11 +11,11 @@
 
 namespace OCA\OauthClient\Controller;
 
+use \OC\User\Session;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http\RedirectResponse;
 use \OCP\IUserManager;
 use \OCP\IUserSession;
-use \OCP\ISession;
 
 require_once __DIR__ . '/../3rdparty/vendor/autoload.php';
 
@@ -27,8 +27,8 @@ class AuthController extends Controller {
 
   public function __construct($appName, $request,
     								IUserManager $userManager,
-    								IUserSession $userSession,
-                    ISession $session
+                    ISession $session,
+		                Session $userSession
   ){
       parent::__construct($appName, $request);
       $this->userSession = $userSession;
@@ -70,7 +70,7 @@ class AuthController extends Controller {
         $user = $this->userManager->get($result['username']);
         $loginResult = $this->userManager->checkPassword($result['username'], '123456789');
 
-        $this->userSession->login($user, $password);
+        $this->userSession->login($result['username'], '123456789');
         $this->session->createSessionToken($this->request, $loginResult->getUID(), $result['username'], '123456789');
 
         //print_r($loginResult); die();
