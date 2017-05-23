@@ -47,15 +47,10 @@ class AuthController extends Controller {
     $autorization_endpoint = 'https://betaparticipa.barcelonaencomu.cat/oauth/authorize';
     $token_endpoint         = 'https://betaparticipa.barcelonaencomu.cat/oauth/token';
     $api_endpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
+    $tokenpass = '12345679';
 
     $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
 
-    //print_r($this->userSession->login('usu1', '123')); die();
-
-    $this->userSession->login('perez-pepito', '12345678', $this->request);
-    return new RedirectResponse('/index.php/apps/files');
-
-    /*
     if (!$code) {
       $auth_url = $oauthclient->getAuthenticationUrl($autorization_endpoint, $redirect_uri);
       return new RedirectResponse($auth_url);
@@ -68,25 +63,12 @@ class AuthController extends Controller {
 
       //Check if user exists
       if ($this->userManager->userExists($result['username'])) {
-        //Set user
-        $user = $this->userManager->get($result['username']);
-        $loginResult = $this->userManager->checkPassword($result['username'], '123456789');
-
-        pint_r($this->userSession->login($result['username'], '12345678')); die();
-
-        //$this->session->createSessionToken($this->request, $loginResult->getUID(), $result['username'], '123456789');
-
-        //print_r($loginResult); die();
-
-        //$this->userSession->setUser($user);
-        //$this->session->login($result['username'], '123456789');
-        return new RedirectResponse('/');
+        $this->userSession->login($result['username'], $tokenpass, $this->request);
+        return new RedirectResponse('/index.php/apps/files');
       } else {
         //Create the user
         die('create user');
       }
-      print_r($response); die();
     }
-    */
   }
 }
