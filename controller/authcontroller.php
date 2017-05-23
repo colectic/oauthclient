@@ -50,6 +50,12 @@ class AuthController extends Controller {
 
     $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
 
+    //print_r($this->userSession->login('usu1', '123')); die();
+
+    $this->userSession->login('perez-pepito', '12345678', $this->request);
+    return new RedirectResponse('/index.php/apps/files');
+
+    /*
     if (!$code) {
       $auth_url = $oauthclient->getAuthenticationUrl($autorization_endpoint, $redirect_uri);
       return new RedirectResponse($auth_url);
@@ -81,5 +87,6 @@ class AuthController extends Controller {
       }
       print_r($response); die();
     }
+    */
   }
 }
