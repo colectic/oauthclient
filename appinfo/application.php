@@ -29,11 +29,11 @@ class Application extends App {
 		$container->registerService('AuthController', function(IAppContainer $c) {
 			$server = $c->getServer();
 			return new AuthController(
-				$c->getAppName(),
-				$server->getRequest(),
-				$server->getUserManager(),
-				$server->getUserSession(),
-				$server->getSession()
+				$c->query('AppName'),
+				$c->query('Request'),
+				$c->query('UserManager'),
+				$c->query('UserSession'),
+				$c->query('Session')
 			);
 		});
 
