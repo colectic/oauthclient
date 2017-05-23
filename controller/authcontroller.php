@@ -62,7 +62,7 @@ class AuthController extends Controller {
 
       //Check if user exists
       if ($this->userManager->userExists($result['username'])) {
-        $user->get($result['username']);
+        $user = $this->userManager->get($result['username']);
         $pass = rand();
         $user->setPassword($pass);
         $this->userSession->login($result['username'], $pass, $this->request);
