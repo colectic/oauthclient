@@ -33,7 +33,7 @@ class Application extends App {
 				$server->getRequest(),
 				$server->getUserManager(),
 				$server->getUserSession(),
-				$server->getSession(),
+				$server->getSession()
 			);
 		});
 
