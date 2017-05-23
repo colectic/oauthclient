@@ -68,8 +68,9 @@ class AuthController extends Controller {
       if ($this->userManager->userExists($result['username'])) {
         //Set user
         $user = $this->userManager->get($result['username']);
+        die('hi');
         //$this->userSession->setUser($user);
-        $this->session->login($result['username'], '123456789');
+        //$this->session->login($result['username'], '123456789');
         return new RedirectResponse('/');
       } else {
         //Create the user

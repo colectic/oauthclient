@@ -13,7 +13,7 @@ namespace OCA\OauthClient\AppInfo;
 
 
 use \OCP\AppFramework\App;
-use \OC\AppFramework\Utility\SimpleContainer;
+use \OCP\AppFramework\IAppContainer;
 
 use OCA\OauthClient\Controller\AuthController;
 
@@ -26,8 +26,8 @@ class Application extends App {
 		/**
 		 * Controllers
 		 */
-		$container->registerService('AuthController', function(SimpleContainer $c) {
-			$server = $c->getServer();
+		$container->registerService('AuthController', function(IAppContainer $c) {
+			//$server = $c->getServer();
 			return new AuthController(
 				$c->query('AppName'),
 				$c->query('Request'),
