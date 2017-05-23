@@ -15,7 +15,7 @@ namespace OCA\OauthClient\AppInfo;
 use \OCP\AppFramework\App;
 use \OCP\AppFramework\IAppContainer;
 
-use \OCA\OauthClient\Controller\AuthController;
+use OCA\OauthClient\Controller\AuthController;
 
 class Application extends App {
 
