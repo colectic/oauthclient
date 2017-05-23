@@ -47,7 +47,6 @@ class AuthController extends Controller {
     $autorization_endpoint = 'https://betaparticipa.barcelonaencomu.cat/oauth/authorize';
     $token_endpoint         = 'https://betaparticipa.barcelonaencomu.cat/oauth/token';
     $api_endpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
-    $tokenpass = '12345679';
 
     $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
 
@@ -63,7 +62,10 @@ class AuthController extends Controller {
 
       //Check if user exists
       if ($this->userManager->userExists($result['username'])) {
-        $this->userSession->login($result['username'], $tokenpass, $this->request);
+        $user->get($result['username']);
+        $pass = rand();
+        $user->setPassword($pass);
+        $this->userSession->login($result['username'], $pass, $this->request);
         return new RedirectResponse('/index.php/apps/files');
       } else {
         //Create the user
