@@ -23,17 +23,14 @@ class AuthController extends Controller {
 
 	private $userManager;
 	private $userSession;
-  private $session;
 
   public function __construct($appName, $request,
-    								IUserManager $userManager,
-                    ISession $session,
-		                Session $userSession
+    								IUserManager $userManager
+		                IUserSession $userSession
   ){
       parent::__construct($appName, $request);
       $this->userSession = $userSession;
 		  $this->userManager = $userManager;
-      $this->session = $session;
   }
 
   /**
