@@ -13,8 +13,8 @@ namespace OCA\OauthClient\Controller;
 
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http\RedirectResponse;
-use \OC\User\Session;
 use \OCP\IUserManager;
+use \OCP\IUserSession;
 use \OCP\ISession;
 
 require_once __DIR__ . '/../3rdparty/vendor/autoload.php';
@@ -27,7 +27,7 @@ class AuthController extends Controller {
 
   public function __construct($appName, $request,
     								IUserManager $userManager,
-    								Session $userSession,
+    								IUserSession $userSession,
                     ISession $session
   ){
       parent::__construct($appName, $request);
