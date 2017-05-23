@@ -69,7 +69,11 @@ class AuthController extends Controller {
         //Set user
         $user = $this->userManager->get($result['username']);
         $loginResult = $this->userManager->checkPassword($result['username'], '123456789');
-        print_r($loginResult); die();
+
+        $this->userSession->login($user, $password);
+        $this->session->createSessionToken($this->request, $loginResult->getUID(), $result['username'], '123456789');
+
+        //print_r($loginResult); die();
 
         //$this->userSession->setUser($user);
         //$this->session->login($result['username'], '123456789');
