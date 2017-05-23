@@ -11,7 +11,6 @@
 
 namespace OCA\OauthClient\Controller;
 
-use \OC\User\Session;
 use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http\RedirectResponse;
 use \OCP\IUserManager;
@@ -25,7 +24,7 @@ class AuthController extends Controller {
 	private $userSession;
 
   public function __construct($appName, $request,
-    								IUserManager $userManager
+    								IUserManager $userManager,
 		                IUserSession $userSession
   ){
       parent::__construct($appName, $request);
@@ -67,8 +66,9 @@ class AuthController extends Controller {
         $user = $this->userManager->get($result['username']);
         $loginResult = $this->userManager->checkPassword($result['username'], '123456789');
 
-        $this->userSession->login($result['username'], '123456789');
-        $this->session->createSessionToken($this->request, $loginResult->getUID(), $result['username'], '123456789');
+        pint_r($this->userSession->login($result['username'], '12345678')); die();
+
+        //$this->session->createSessionToken($this->request, $loginResult->getUID(), $result['username'], '123456789');
 
         //print_r($loginResult); die();
 
