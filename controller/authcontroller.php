@@ -43,21 +43,28 @@ class AuthController extends Controller {
      */
     $clientid     = 'e63b7303a7a6443e7ce50414773b7d1f0a1b9033ae1020534c7440888e4e8633';
     $clientsecret = 'de5d9a3ed59694dacd5a5f06e6998c8d69a8ecbe044acb690dc99a72e8aed315';
-    $redirect_uri  = 'https://betaowncloud.barcelonaencomu.cat/index.php/apps/oauthclient';
-    $autorization_endpoint = 'https://betaparticipa.barcelonaencomu.cat/oauth/authorize';
-    $token_endpoint         = 'https://betaparticipa.barcelonaencomu.cat/oauth/token';
-    $api_endpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
+    $redirecturi  = 'https://betaowncloud.barcelonaencomu.cat/index.php/apps/oauthclient';
+    $autorizationendpoint = 'https://betaparticipa.barcelonaencomu.cat/oauth/authorize';
+    $tokenendpoint         = 'https://betaparticipa.barcelonaencomu.cat/oauth/token';
+    $apiendpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
 
     $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
-
+    /*
+    $user = $this->userManager->get('usu1');
+    $pass = rand();
+    $user->setPassword($pass);
+    $this->userSession->login('usu1', $pass);
+    $this->userSession->createSessionToken($this->request, 'usu1', 'usu1', $pass);
+    return new RedirectResponse('/index.php/apps/files');
+    */
     if (!$code) {
-      $auth_url = $oauthclient->getAuthenticationUrl($autorization_endpoint, $redirect_uri);
-      return new RedirectResponse($auth_url);
+      $authurl = $oauthclient->getAuthenticationUrl($autorizationendpoint, $redirecturi);
+      return new RedirectResponse($authurl);
     } else {
-      $params = array('code' => $code, 'redirect_uri' => $redirect_uri);
-      $response = $oauthclient->getAccessToken($token_endpoint, 'authorization_code', $params);
+      $params = array('code' => $code, 'redirect_uri' => $redirecturi);
+      $response = $oauthclient->getAccessToken($tokenendpoint, 'authorization_code', $params);
       $oauthclient->setAccessToken($response['result']['access_token']);
-      $response = $oauthclient->fetch($api_endpoint);
+      $response = $oauthclient->fetch($apiendpoint);
       $result = $response['result'];
 
       //Check if user exists
@@ -65,7 +72,8 @@ class AuthController extends Controller {
         $user = $this->userManager->get($result['username']);
         $pass = rand();
         $user->setPassword($pass);
-        $this->userSession->login($result['username'], $pass, $this->request);
+        $this->userSession->login($result['username'], $pass);
+        $this->userSession->createSessionToken($this->request, $result['username'], $result['username'], $pass);
         return new RedirectResponse('/index.php/apps/files');
       } else {
         //Create the user

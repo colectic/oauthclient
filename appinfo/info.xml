@@ -7,4 +7,7 @@
     <author>Fèlix Casanellas</author>
     <version>0.0.1</version>
     <requiremin>7.0.0</requiremin>
+    <settings>
+        <admin>\OCA\OauthClient\Settings\Admin</admin>
+    </settings>
 </info>
