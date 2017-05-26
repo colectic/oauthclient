@@ -71,7 +71,7 @@ class AuthController extends Controller {
 
 			$pass = rand();
 			$uid = 'oauth-user-'.$result['id'];
-			$displayname = ucwords(tr_replace('-', ' '));
+			$displayname = ucwords(str_replace('-', ' '));
 
 
       //Check if user exists
