@@ -67,18 +67,19 @@ class AuthController extends Controller {
       $response = $oauthclient->fetch($apiendpoint);
       $result = $response['result'];
 
+			$pass = rand();
+			$uid = $result['username'];
+
       //Check if user exists
-      if ($this->userManager->userExists($result['username'])) {
-        $user = $this->userManager->get($result['username']);
-        $pass = rand();
+      if ($this->userManager->userExists($uid)) {
+        $user = $this->userManager->get($uid);
         $user->setPassword($pass);
-        $this->userSession->login($result['username'], $pass);
-        $this->userSession->createSessionToken($this->request, $result['username'], $result['username'], $pass);
-        return new RedirectResponse('/index.php/apps/files');
       } else {
-        //Create the user
-        die('create user');
+				$user = $this->userManager->createUser($uid, $pass);
       }
+			$this->userSession->login($uid, $pass);
+			$this->userSession->createSessionToken($this->request, $uid, $uid, $pass);
+			return new RedirectResponse('/index.php/apps/files');
     }
   }
 }
