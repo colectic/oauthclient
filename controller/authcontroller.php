@@ -70,7 +70,7 @@ class AuthController extends Controller {
 			if(empty($result)) die('token error'); //TODO: tractar l'error
 
 			$pass = rand();
-			$uid = 'oauth_user'.$result['id'];
+			$uid = 'oauth-user-'.$result['id'];
 
       //Check if user exists
       if ($this->userManager->userExists($uid)) {
@@ -79,8 +79,9 @@ class AuthController extends Controller {
       } else {
 				$user = $this->userManager->createUser($uid, $pass);
       }
+			$loginResult = $this->userManager->checkPassword($uid, $password);
 			$this->userSession->login($uid, $pass);
-			$this->userSession->createSessionToken($this->request, $uid, $uid, $pass);
+			$this->userSession->createSessionToken($this->request, $loginResult->getUID(), $uid, $pass);
 			return new RedirectResponse('/index.php/apps/files');
     }
   }
