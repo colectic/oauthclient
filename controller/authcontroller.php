@@ -75,12 +75,12 @@ class AuthController extends Controller {
 				$group = $this->groupManager->get($guid);
 				$group->removeUser($user);
 			}
-		}*/
+		}
 
     $user->setPassword($pass);
     $this->userSession->login($uid, $pass);
     $this->userSession->createSessionToken($this->request, $uid, $uid, $pass);
-    return new RedirectResponse('/index.php/apps/files');
+    return new RedirectResponse('/index.php/apps/files');*/
 
     if (!$code) {
       $authurl = $oauthclient->getAuthenticationUrl($autorizationendpoint, $redirecturi);
