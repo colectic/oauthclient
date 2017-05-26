@@ -79,9 +79,8 @@ class AuthController extends Controller {
       } else {
 				$user = $this->userManager->createUser($uid, $pass);
       }
-			$loginResult = $this->userManager->checkPassword($uid, $password);
 			$this->userSession->login($uid, $pass);
-			$this->userSession->createSessionToken($this->request, $loginResult->getUID(), $uid, $pass);
+			$this->userSession->createSessionToken($this->request, $user->getUID(), $uid, $pass);
 			return new RedirectResponse('/index.php/apps/files');
     }
   }
