@@ -15,6 +15,7 @@ use \OCP\AppFramework\Controller;
 use \OCP\AppFramework\Http\RedirectResponse;
 use \OCP\IUserManager;
 use \OCP\IUserSession;
+use \OCP\IGroupManager;
 
 require_once __DIR__ . '/../3rdparty/vendor/autoload.php';
 
@@ -22,14 +23,17 @@ class AuthController extends Controller {
 
 	private $userManager;
 	private $userSession;
+	private $groupManager;
 
   public function __construct($appName, $request,
     								IUserManager $userManager,
-		                IUserSession $userSession
+		                IUserSession $userSession,
+										IGroupManager $groupManager
   ){
       parent::__construct($appName, $request);
       $this->userSession = $userSession;
 		  $this->userManager = $userManager;
+			$this->groupManager = $groupManager;
   }
 
   /**
@@ -50,12 +54,33 @@ class AuthController extends Controller {
 
     $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
 
-    /*$user = $this->userManager->get('usu1');
-    $pass = rand();
-    $user->setPassword($pass, $pass);
-    $this->userSession->login('usu1', $pass);
-    $this->userSession->createSessionToken($this->request, 'usu1', 'usu1', $pass);
-    return new RedirectResponse('/index.php/apps/files');*/
+    /*$uid = 'usu1';
+		$pass = rand();
+		$new_groups = array('g2');
+
+		$user = $this->userManager->get('usu1');
+		$old_groups = $this->groupManager->getUserGroupIds($user);
+
+		//$user = $this->userManager->createUser($uid, $pass);
+		foreach ($new_groups as $guid) {
+			if (!in_array($guid, $old_groups)) {
+					//Add to new groups
+					$group = $this->groupManager->get($guid);
+					$group->addUser($user);
+			}
+		}
+		foreach ($old_groups as $guid) {
+			if (!in_array($guid, $new_groups)) {
+				//Remove old group
+				$group = $this->groupManager->get($guid);
+				$group->removeUser($user);
+			}
+		}*/
+
+    $user->setPassword($pass);
+    $this->userSession->login($uid, $pass);
+    $this->userSession->createSessionToken($this->request, $uid, $uid, $pass);
+    return new RedirectResponse('/index.php/apps/files');
 
     if (!$code) {
       $authurl = $oauthclient->getAuthenticationUrl($autorizationendpoint, $redirecturi);
@@ -72,14 +97,35 @@ class AuthController extends Controller {
 			$pass = rand();
 			$uid = 'oauth-user-'.$result['id'];
 			$displayname = ucwords(str_replace('-', ' ', $result['username']));
+			$groups = $result['groups'];
 
       //Check if user exists
       if ($this->userManager->userExists($uid)) {
         $user = $this->userManager->get($uid);
+				$old_groups = $this->groupManager->getUserGroupIds($user);
+
+				foreach ($new_groups as $guid) {
+					if (!in_array($guid, $old_groups)) {
+							//Add to new groups
+							$group = $this->groupManager->get($guid);
+							$group->addUser($user);
+					}
+				}
+				foreach ($old_groups as $guid) {
+					if (!in_array($guid, $new_groups)) {
+						//Remove old group
+						$group = $this->groupManager->get($guid);
+						$group->removeUser($user);
+					}
+				}
         $user->setPassword($pass);
       } else {
 				$user = $this->userManager->createUser($uid, $pass);
 				$user->setDisplayName($displayname);
+				foreach ($groups as $guid) {
+					$group = $this->groupManager->get($guid);
+					$group->addUser($user);
+				}
       }
 			$this->userSession->login($uid, $pass);
 			$this->userSession->createSessionToken($this->request, $user->getUID(), $uid, $pass);
