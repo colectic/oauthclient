@@ -111,7 +111,7 @@ class AuthController extends Controller {
 					}
 				}
 				foreach ($old_groups as $guid) {
-					if (!in_array($guid, $new_groups)) {
+					if (!in_array($guid, $groups)) {
 						//Remove old group
 						$group = $this->groupManager->get($guid);
 						$group->removeUser($user);
