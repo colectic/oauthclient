@@ -67,8 +67,10 @@ class AuthController extends Controller {
       $response = $oauthclient->fetch($apiendpoint);
       $result = $response['result'];
 
+			if(empty($result)) die('token error'); //TODO: tractar l'error
+
 			$pass = rand();
-			$uid = $result['username'];
+			$uid = 'oauth_user'.$result['id'];
 
       //Check if user exists
       if ($this->userManager->userExists($uid)) {
