@@ -7,60 +7,17 @@
 
 $(document).ready(function(){
 
-	var loginMsg = t('user_saml', 'Login with SAML');
-
-    $('<div id="login-saml"></div>').css({
+    $('<div id="login-oauth"></div>').css({
 		'text-align': 'center',
     }).appendTo('form');
 
-	$('<p>or</p>').css(
-	{
-		'text-align': 'center',
-        'font-weight': 'bolder',
-        'font-size' : '110%'
-	}).appendTo('#login-saml');
-
-    if ($('#user').val() == "") {
-        $('#password').parent().hide();
-        $('#remember_login').hide();
-        $('#remember_login+label').hide();
-        $('#submit').hide();
-    }
-
-    $('#user').change( function() {
-        if ($(this).val() !== "") {
-            $('#password').parent().show();
-            $('#remember_login').show();
-            $('#remember_login+label').show();
-            $('#submit').show();
-        }
-        else {
-            $('#password').parent().hide();
-            $('#remember_login').hide();
-            $('#remember_login+label').hide();
-            $('#submit').hide();
-        }
-    });
-
-	$('<p>Access using SAML authentication</p>').css(
-	{
-		'text-align': 'center',
-        'font-weight': 'bolder',
-        'font-size' : '110%'
-	}).appendTo('#login-saml');
-
-
-    $('<a id="login-saml-action" href="/index.php/apps/oauthclient" ></a>').css(
+    $('<a id="login-saml-action" href="/index.php/apps/oauthclient" >Entra via Participa</a>').css(
     {
-        'text-decoration': 'none'
-    }).appendTo('#login-saml');
-
-
-	$('<img id="login-saml-img" src="' + OC.imagePath('user_saml', 'logo.jpg') + '" title="'+ loginMsg +'" alt="'+ loginMsg +'" />').css(
-	{
-		cursor : 'pointer',
-        border : '1px solid #777'
-	}).appendTo('#login-saml-action');
-
+        'text-decoration': 'none',
+	'background-color': '#9C1F1D',
+    	'color': 'whitesmoke',
+    	'padding': '5px 10px',
+    	'font-weight': 'bold'
+    }).appendTo('#login-oauth');
 
 });
