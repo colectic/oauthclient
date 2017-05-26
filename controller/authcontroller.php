@@ -49,14 +49,14 @@ class AuthController extends Controller {
     $apiendpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
 
     $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
-    /*
-    $user = $this->userManager->get('usu1');
+
+    /*$user = $this->userManager->get('usu1');
     $pass = rand();
-    $user->setPassword($pass);
+    $user->setPassword($pass, $pass);
     $this->userSession->login('usu1', $pass);
     $this->userSession->createSessionToken($this->request, 'usu1', 'usu1', $pass);
-    return new RedirectResponse('/index.php/apps/files');
-    */
+    return new RedirectResponse('/index.php/apps/files');*/
+
     if (!$code) {
       $authurl = $oauthclient->getAuthenticationUrl($autorizationendpoint, $redirecturi);
       return new RedirectResponse($authurl);
@@ -71,6 +71,8 @@ class AuthController extends Controller {
 
 			$pass = rand();
 			$uid = 'oauth-user-'.$result['id'];
+			$displayname = ucwords(tr_replace('-', ' '));
+
 
       //Check if user exists
       if ($this->userManager->userExists($uid)) {
@@ -78,6 +80,7 @@ class AuthController extends Controller {
         $user->setPassword($pass);
       } else {
 				$user = $this->userManager->createUser($uid, $pass);
+				$user->setDisplayName($displayname);
       }
 			$this->userSession->login($uid, $pass);
 			$this->userSession->createSessionToken($this->request, $user->getUID(), $uid, $pass);
