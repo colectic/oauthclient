@@ -96,8 +96,8 @@ class AuthController extends Controller {
 
 			$pass = rand();
 			$uid = 'oauth-user-'.$result['id'];
-			$displayname = ucwords(str_replace('-', ' ', $result['username']));
-			$groups = $result['groups'];
+			$displayname = $result['full_name']);
+			$groups = $result['list_groups'];
 
       //Check if user exists
       if ($this->userManager->userExists($uid)) {
