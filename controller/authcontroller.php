@@ -96,7 +96,7 @@ class AuthController extends Controller {
 
 			$pass = rand();
 			$uid = 'oauth-user-'.$result['id'];
-			$displayname = $result['full_name']);
+			$displayname = $result['full_name'];
 			$groups = $result['list_groups'];
 
       //Check if user exists
