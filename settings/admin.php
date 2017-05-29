@@ -42,7 +42,7 @@
 	}
 
   public function getSectionID() {
-		return 'additional';
+		return 'general';
 	}
 
   public function getPriority() {
