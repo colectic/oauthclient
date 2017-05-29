@@ -24,16 +24,19 @@ class AuthController extends Controller {
 	private $userManager;
 	private $userSession;
 	private $groupManager;
+	private $config;
 
   public function __construct($appName, $request,
     								IUserManager $userManager,
 		                IUserSession $userSession,
-										IGroupManager $groupManager
+										IGroupManager $groupManager,
+										IConfig $config
   ){
       parent::__construct($appName, $request);
       $this->userSession = $userSession;
 		  $this->userManager = $userManager;
 			$this->groupManager = $groupManager;
+			$this->config = $config;
   }
 
   /**
@@ -42,45 +45,16 @@ class AuthController extends Controller {
    * @PublicPage
    */
   public function login($code=null) {
-    /**
-     * TODO: Agafar aquests paràmetres de la configuració
-     */
-    $clientid     = 'e63b7303a7a6443e7ce50414773b7d1f0a1b9033ae1020534c7440888e4e8633';
-    $clientsecret = 'de5d9a3ed59694dacd5a5f06e6998c8d69a8ecbe044acb690dc99a72e8aed315';
-    $redirecturi  = 'https://betafitxers.barcelonaencomu.cat/index.php/apps/oauthclient';
-    $autorizationendpoint = 'https://betaparticipa.barcelonaencomu.cat/oauth/authorize';
-    $tokenendpoint         = 'https://betaparticipa.barcelonaencomu.cat/oauth/token';
-    $apiendpoint = 'https://betaparticipa.barcelonaencomu.cat/api/v2/users/me';
+		$this->config->getAppValue('oauthclient', 'clientid', '');
+
+		$clientid     = $this->config->getAppValue('oauthclient', 'clientid', '');
+		$clientsecret = $this->config->getAppValue('oauthclient', 'clientsecret', '');
+		$redirecturi  = $this->config->getAppValue('oauthclient', 'redirecturi', '');
+		$autorizationendpoint = $this->config->getAppValue('oauthclient', 'autorizationendpoint', '');
+		$tokenendpoint = $this->config->getAppValue('oauthclient', 'tokenendpoint', '');
+		$apiendpoint = $this->config->getAppValue('oauthclient', 'apiendpoint', '');
 
     $oauthclient = new \OAuth2\Client($clientid, $clientsecret);
-
-    /*$uid = 'usu1';
-		$pass = rand();
-		$new_groups = array('g2');
-
-		$user = $this->userManager->get('usu1');
-		$old_groups = $this->groupManager->getUserGroupIds($user);
-
-		//$user = $this->userManager->createUser($uid, $pass);
-		foreach ($new_groups as $guid) {
-			if (!in_array($guid, $old_groups)) {
-					//Add to new groups
-					$group = $this->groupManager->get($guid);
-					$group->addUser($user);
-			}
-		}
-		foreach ($old_groups as $guid) {
-			if (!in_array($guid, $new_groups)) {
-				//Remove old group
-				$group = $this->groupManager->get($guid);
-				$group->removeUser($user);
-			}
-		}
-
-    $user->setPassword($pass);
-    $this->userSession->login($uid, $pass);
-    $this->userSession->createSessionToken($this->request, $uid, $uid, $pass);
-    return new RedirectResponse('/index.php/apps/files');*/
 
     if (!$code) {
       $authurl = $oauthclient->getAuthenticationUrl($autorizationendpoint, $redirecturi);

@@ -16,6 +16,7 @@ use \OCP\AppFramework\App;
 use \OCP\AppFramework\IAppContainer;
 
 use \OCA\OauthClient\Controller\AuthController;
+use \OCA\OauthClient\Controller\SettingsController;
 
 class Application extends App {
 
@@ -33,9 +34,18 @@ class Application extends App {
 				$server->getRequest(),
 				$server->getUserManager(),
 				$server->getUserSession(),
-				$server->getGroupManager()
+				$server->getGroupManager(),
+				$server->getConfig()
 			);
 		});
 
+		$container->registerService('SettingsController', function(IAppContainer $c) {
+			$server = $c->getServer();
+			return new SettingsController(
+				$c->getAppName(),
+				$server->getRequest(),
+				$server->getConfig()
+			);
+		});
 	}
 }

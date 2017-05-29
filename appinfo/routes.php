@@ -23,4 +23,5 @@ $application = new Application();
 
 $application->registerRoutes($this, array('routes' => array(
 	array('name' => 'auth#login', 'url' => '/', 'verb' => 'GET'),
+	array('name' => 'settings#setsettings', 'url' => '/ajax/setsettings', 'verb' => 'POST')
 )));
