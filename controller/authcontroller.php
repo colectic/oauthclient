@@ -81,14 +81,14 @@ class AuthController extends Controller {
 					if (!in_array($guid, $old_groups)) {
 							//Add to new groups
 							$group = $this->groupManager->get($guid);
-							$group->addUser($user);
+							if($group) $group->addUser($user);
 					}
 				}
 				foreach ($old_groups as $guid) {
 					if (!in_array($guid, $groups)) {
 						//Remove old group
 						$group = $this->groupManager->get($guid);
-						$group->removeUser($user);
+						if($group) $group->removeUser($user);
 					}
 				}
         $user->setPassword($pass);
@@ -97,7 +97,7 @@ class AuthController extends Controller {
 				$user->setDisplayName($displayname);
 				foreach ($groups as $guid) {
 					$group = $this->groupManager->get($guid);
-					$group->addUser($user);
+					if($group) $group->addUser($user);
 				}
       }
 			$this->userSession->login($uid, $pass);
