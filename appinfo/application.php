@@ -47,5 +47,10 @@ class Application extends App {
 				$server->getConfig()
 			);
 		});
+
+		public function registerSettings() {
+		// Register settings scripts
+		App::registerAdmin('oauthclient', 'settings/admin');
+	}
 	}
 }

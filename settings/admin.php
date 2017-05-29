@@ -9,43 +9,22 @@
  * @copyright Fèlix Casanellas 2017
  */
 
- namespace OCA\OauthClient\Settings;
- use OCP\Template;
- use OCP\Settings\ISettings;
- use OCP\IConfig;
+\OC_Util::checkAdminUser();
 
- class Admin implements ISettings {
-  /** @var IConfig */
-  protected $config;
+$tmpl = new OCP\Template('oauthclient', 'admin');
 
-  public function __construct(IConfig $config) { $this->config = $config; }
+$clientid     = \OC::$server->getConfig()->getAppValue('oauthclient', 'clientid', '');
+$clientsecret = \OC::$server->getConfig()->getAppValue('oauthclient', 'clientsecret', '');
+$redirecturi  = \OC::$server->getConfig()->getAppValue('oauthclient', 'redirecturi', '');
+$autorizationendpoint = \OC::$server->getConfig()->getAppValue('oauthclient', 'autorizationendpoint', '');
+$tokenendpoint = \OC::$server->getConfig()->getAppValue('oauthclient', 'tokenendpoint', '');
+$apiendpoint = \OC::$server->getConfig()->getAppValue('oauthclient', 'apiendpoint', '');
 
-  public function getPanel() {
+$tmpl->assign('clientid', $clientid);
+$tmpl->assign('clientsecret', $clientsecret);
+$tmpl->assign('redirecturi', $redirecturi);
+$tmpl->assign('autorizationendpoint', $autorizationendpoint);
+$tmpl->assign('tokenendpoint', $tokenendpoint);
+$tmpl->assign('apiendpoint', $apiendpoint);
 
-		$tmpl = new Template('oauthclient', 'admin');
-
-    $clientid     = $this->config->getAppValue('oauthclient', 'clientid', '');
-    $clientsecret = $this->config->getAppValue('oauthclient', 'clientsecret', '');
-    $redirecturi  = $this->config->getAppValue('oauthclient', 'redirecturi', '');
-    $autorizationendpoint = $this->config->getAppValue('oauthclient', 'autorizationendpoint', '');
-    $tokenendpoint = $this->config->getAppValue('oauthclient', 'tokenendpoint', '');
-    $apiendpoint = $this->config->getAppValue('oauthclient', 'apiendpoint', '');
-
-    $tmpl->assign('clientid', $clientid);
-    $tmpl->assign('clientsecret', $clientsecret);
-    $tmpl->assign('redirecturi', $redirecturi);
-    $tmpl->assign('autorizationendpoint', $autorizationendpoint);
-    $tmpl->assign('tokenendpoint', $tokenendpoint);
-    $tmpl->assign('apiendpoint', $apiendpoint);
-
-		return $tmpl;
-	}
-
-  public function getSectionID() {
-		return 'general';
-	}
-
-  public function getPriority() {
-		return 0;
-	}
- }
+return $tmpl->fetchPage();
