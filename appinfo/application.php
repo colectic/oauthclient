@@ -51,6 +51,6 @@ class Application extends App {
 
 	public function registerSettings() {
 		// Register settings scripts
-		App::registerAdmin('oauthclient', 'settings/admin');
+		\OCP\App::registerAdmin('oauthclient', 'settings/admin');
 	}
 }
