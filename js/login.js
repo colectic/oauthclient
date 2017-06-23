@@ -25,7 +25,7 @@ $(document).ready(function(){
 			'text-decoration' : 'underline',
 			'text-align' : 'left',
 			'margin-top' : '5px'
-		}).appendTo('#form');
+		}).appendTo('form');
 
 		$('#toggle-form').click(function(){
 			$('form fieldset').toggle('slow');
