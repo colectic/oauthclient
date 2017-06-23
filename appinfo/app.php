@@ -15,6 +15,7 @@ if (\OCP\App::isEnabled('oauthclient')) {
   if (!\OCP\User::isLoggedIn()) {
 		// Load js code in order to render the Oauth link and to hide parts of the normal login form
 		\OCP\Util::addScript('oauthclient', 'login');
+    \OCP\Util::addStyle('oauthclient', 'style');
 	}
 
   $app = new Application();
