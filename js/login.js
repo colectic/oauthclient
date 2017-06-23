@@ -19,7 +19,7 @@ $(document).ready(function(){
     	'font-weight': 'bold'
     }).appendTo('#login-button');
 
-		$('</p><a id="toggle-form" href="#">Administrador</a></p>').css({
+		$('<p><a id="toggle-form" href="#">Administrador</a></p>').css({
 			'color' : '#9C1F1D',
 			'font-size' : '8pt',
 			'text-decoration' : 'underline',
