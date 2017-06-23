@@ -10,18 +10,22 @@ $(document).ready(function(){
 		'text-align': 'center',
     }).appendTo('form');
 
-    $('<a id="login-saml-action" href="/index.php/apps/oauthclient" ><i class="fa fa-user"></i>Iniciar sessió</a>').css(
+    $('<p><a id="login-saml-action" href="/index.php/apps/oauthclient">Iniciar sessió</a></p>').css(
     {
       'text-decoration': 'none',
 			'background-color': '#9C1F1D',
     	'color': 'whitesmoke',
-    	'padding': '5px 10px',
+    	'padding': '8px 15px',
     	'font-weight': 'bold'
     }).appendTo('#login-oauth');
 
-		$('<a id="toggle-form" href="#">Formulari</a>').appendTo('#login-oauth');
+		$('</p><a id="toggle-form" href="#">Administrador?</a></p>').css({
+			'color' : '#9C1F1D',
+			'font-size' : '8pt',
+			'text-decoration' : 'underline'
+		}).appendTo('#login-oauth');
 
 		$('#toggle-form').click(function(){
-			$('form').toggle();
+			$('form fieldset').toggle('slow');
 		});
 });
