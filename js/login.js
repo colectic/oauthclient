@@ -9,13 +9,13 @@ $(document).ready(function(){
     $('<p id="login-button"></p>').css({
 		'text-align': 'center',
 		'background-color': '#9C1F1D',
-		'color': 'whitesmoke',
 		'padding': '8px 15px',
     }).appendTo('form');
 
     $('<a id="login-saml-action" href="/index.php/apps/oauthclient">Iniciar sessió</a>').css(
     {
       'text-decoration': 'none',
+			'color': 'whitesmoke',
     	'font-weight': 'bold'
     }).appendTo('#login-button');
 
@@ -25,7 +25,7 @@ $(document).ready(function(){
 			'text-decoration' : 'underline',
 			'text-align' : 'left',
 			'margin-top' : '5px'
-		}).appendTo('#login-oauth');
+		}).appendTo('#form');
 
 		$('#toggle-form').click(function(){
 			$('form fieldset').toggle('slow');
