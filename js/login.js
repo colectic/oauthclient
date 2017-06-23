@@ -6,16 +6,16 @@
 })();
 
 $(document).ready(function(){
-    $('<div id="login-oauth"><p id="login-button"></p></div>').css({
+    $('<p id="login-button"></p>').css({
 		'text-align': 'center',
+		'background-color': '#9C1F1D',
+		'color': 'whitesmoke',
+		'padding': '8px 15px',
     }).appendTo('form');
 
     $('<a id="login-saml-action" href="/index.php/apps/oauthclient">Iniciar sessió</a>').css(
     {
       'text-decoration': 'none',
-			'background-color': '#9C1F1D',
-    	'color': 'whitesmoke',
-    	'padding': '8px 15px',
     	'font-weight': 'bold'
     }).appendTo('#login-button');
 
@@ -23,7 +23,8 @@ $(document).ready(function(){
 			'color' : '#9C1F1D',
 			'font-size' : '8pt',
 			'text-decoration' : 'underline',
-			'text-align' : 'left'
+			'text-align' : 'left',
+			'margin-top' : '5px'
 		}).appendTo('#login-oauth');
 
 		$('#toggle-form').click(function(){
